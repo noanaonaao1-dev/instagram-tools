@@ -14,12 +14,19 @@ interface Tool {
 
 const Home = () => {
   const [tools, setTools] = useState<Tool[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/tools')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch tools');
+        return res.json();
+      })
       .then(data => setTools(data))
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -34,7 +41,15 @@ const Home = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {tools.map((tool, index) => (
+        {loading ? (
+          <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-xs">
+            Loading collection...
+          </div>
+        ) : tools.length === 0 ? (
+          <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-xs">
+            No tools available.
+          </div>
+        ) : tools.map((tool, index) => (
           <div key={tool.id} className={`group ${index % 2 === 1 ? 'md:mt-12' : ''}`}>
             {tool.external ? (
               <a href={tool.url} target="_blank" rel="noopener noreferrer" className="block">
