@@ -1,0 +1,7 @@
+name = "lumi"
+pages_build_output_dir = "./frontend/dist"
+
+[[kv_namespaces]]
+binding = "LUMI_KV"
+id = "LUMI_KV_ID" # This will be replaced or used locally
+preview_id = "LUMI_KV_PREVIEW_ID"

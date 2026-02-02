@@ -1,0 +1,18 @@
+# Node
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+*.log
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+.output/
