@@ -44,7 +44,16 @@ npx wrangler pages dev frontend/dist --port 3000
 ```
 
 ### デプロイ
-Cloudflare Pagesにリポジトリを連携し、ビルドコマンドとして `cd frontend && npm run build`、出力ディレクトリとして `frontend/dist` を設定してください。
+1. Cloudflare Pagesにリポジトリを連携します。
+2. ビルド設定を以下のように入力します：
+   - **Framework preset**: `Vite`
+   - **Build command**: `cd frontend && npm run build`
+   - **Build output directory**: `frontend/dist`
+3. **重要：KVバインディングの設定**
+   デプロイ後、Cloudflareダッシュボードから以下を設定してください：
+   - 「設定」>「関数」>「KV名前空間バインディング」
+   - **変数名**: `LUMI_KV`
+   - **KV名前空間**: 事前に作成したKVを選択
 
 ## ライセンス
 MIT
