@@ -22,16 +22,24 @@ Instagramストーリーでシェアされることを目的とした、診断�
 
 ## 開発・セットアップ
 
-### フロントエンド
+本プロジェクトは npm workspaces を使用しています。ルートディレクトリで一度インストールを行うだけで、全てのパッケージの準備が整います。
+
+### インストール
 ```bash
-cd frontend
 npm install
-npm run dev
 ```
 
-### バックエンド (Cloudflare Workers / Functions)
+### フロントエンド（開発モード）
 ```bash
-# ローカル開発
+npm run dev -w frontend
+```
+
+### バックエンド / 全体ローカル実行
+```bash
+# フロントエンドをビルド
+npm run build -w frontend
+
+# wranglerでFunctionsを含めて実行
 npx wrangler pages dev frontend/dist --port 3000
 ```
 

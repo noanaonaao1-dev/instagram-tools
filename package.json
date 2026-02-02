@@ -1,5 +1,8 @@
 {
-  "dependencies": {
-    "hono": "^4.11.7"
-  }
+  "name": "lumi-root",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "functions"
+  ]
 }
