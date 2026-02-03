@@ -141,10 +141,28 @@ const PaletteAnswer = () => {
   );
 
   if (error || !session) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center">
-      <h2 className="text-xl font-serif text-lumi-dark mb-4">{error || 'Session Not Found'}</h2>
-      <p className="text-sm text-lumi-dark/40 mb-8 font-serif">お探しのパレットは見つからなかったか、期限が切れている可能性があります。</p>
-      <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-40">Back to Home</Link>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-br from-rose-50 via-mist-50 to-lavender-50 opacity-40 blur-3xl" />
+      <div className="relative z-10 max-w-xs">
+        <h2 className="text-2xl font-serif text-lumi-dark/80 mb-6 tracking-tight">{error || 'Session Not Found'}</h2>
+        <p className="text-xs text-lumi-dark/40 mb-10 font-serif leading-loose">
+          お探しのパレットは見つからなかったか、<br />期限が切れている可能性があります。
+        </p>
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-block py-4 px-10 bg-lumi-dark text-white rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-lumi-dark/80 transition-all shadow-lg shadow-lumi-dark/10"
+          >
+            再試行する
+          </button>
+          <Link
+            to="/"
+            className="inline-block py-4 px-10 bg-white/60 backdrop-blur-md border border-white/40 rounded-full text-[10px] uppercase tracking-[0.2em] text-lumi-dark/60 hover:bg-white/80 transition-all"
+          >
+            Topに戻る
+          </Link>
+        </div>
+      </div>
     </div>
   );
 
@@ -270,7 +288,7 @@ const PaletteAnswer = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">ワタシの成分パレット :</h3>
+                    <h3 className="text-[10px] font-serif text-lumi-dark/40 mb-2 tracking-widest uppercase">Nuance Palette : Me</h3>
                     <h2 className="text-4xl font-serif text-lumi-dark/90 tracking-tighter mb-8">{session.creatorName}</h2>
                     <div className="space-y-2">
                       {answers.map((ans, i) => (

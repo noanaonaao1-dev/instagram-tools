@@ -264,10 +264,28 @@ const PrismAnswer = () => {
   );
 
   if (error || !session) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center">
-      <h2 className="text-xl font-serif text-lumi-dark mb-4">{error || 'Session Not Found'}</h2>
-      <p className="text-sm text-lumi-dark/40 mb-8 font-serif">お探しの診断は見つからなかったか、期限が切れている可能性があります。</p>
-      <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-40">Back to Home</Link>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-br from-rose-50 via-mist-50 to-lavender-50 opacity-40 blur-3xl" />
+      <div className="relative z-10 max-w-xs">
+        <h2 className="text-2xl font-serif text-lumi-dark/80 mb-6 tracking-tight">{error || 'Session Not Found'}</h2>
+        <p className="text-xs text-lumi-dark/40 mb-10 font-serif leading-loose">
+          お探しの結晶は見つからなかったか、<br />期限が切れている可能性があります。
+        </p>
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-block py-4 px-10 bg-lumi-dark text-white rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-lumi-dark/80 transition-all shadow-lg shadow-lumi-dark/10"
+          >
+            再試行する
+          </button>
+          <Link
+            to="/"
+            className="inline-block py-4 px-10 bg-white/60 backdrop-blur-md border border-white/40 rounded-full text-[10px] uppercase tracking-[0.2em] text-lumi-dark/60 hover:bg-white/80 transition-all"
+          >
+            Topに戻る
+          </Link>
+        </div>
+      </div>
     </div>
   );
 
@@ -390,7 +408,7 @@ const PrismAnswer = () => {
                     <div ref={canvasRef} className="w-[200px] h-[200px] flex items-center justify-center mx-auto" />
 
                     <div className="mt-8">
-                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">心のかけら採集 :</h3>
+                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 tracking-widest uppercase">Mental Fragment : Prism</h3>
                       <h2 className="text-3xl font-serif text-lumi-dark/90 tracking-tighter mb-4">{session.creatorName}</h2>
                       <div className="inline-block px-4 py-1.5 border border-lumi-dark/10 rounded-full text-[10px] font-serif text-lumi-dark/50 tracking-widest italic">
                         {isRevealed ? twoName : '？？？'}

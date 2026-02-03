@@ -2,5 +2,6 @@ name = "lumi"
 pages_build_output_dir = "frontend/dist"
 compatibility_date = "2024-04-03"
 
-# Cloudflare Pages KV bindings are managed in the Dashboard.
-# Please bind a KV namespace to the variable "LUMI_KV".
+[[kv_namespaces]]
+binding = "LUMI_KV"
+id = "dummy-id"

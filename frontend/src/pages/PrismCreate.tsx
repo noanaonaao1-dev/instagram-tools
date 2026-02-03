@@ -53,9 +53,9 @@ const PrismCreate = () => {
       >
         <div className="mb-12">
           <Box className="mx-auto mb-6 text-lumi-dark/20" size={40} />
-          <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">心のかけら採集</h1>
+          <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">Mental Fragment : Prism</h1>
           <p className="text-[10px] uppercase tracking-[0.3em] text-lumi-dark/30 leading-relaxed mb-8 font-sans font-bold">
-            他者視点診断
+            他者視点診断 / 結晶
           </p>
           <p className="text-sm text-lumi-dark/50 leading-relaxed px-4 font-serif italic">
             友達があなたに抱く印象が、<br />一つの「結晶」を紡ぎます。

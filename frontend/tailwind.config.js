@@ -8,14 +8,15 @@ export default {
     extend: {
       colors: {
         lumi: {
-          beige: "#F8F8F5",
-          greige: "#D9D9D2",
-          pale: "#F2F2EE",
-          sage: "#E2E7E2",
-          slate: "#E2E4E7",
-          dark: "#3A3A38",
-          accent: "#A0A096",
-          translucent: "rgba(255, 255, 255, 0.6)",
+          beige: "#FDFCFB", // Lighter, milkier beige
+          greige: "#E9E9E2",
+          pale: "#F7F7F5",
+          mist: "#E6EEF2", // New misty blue
+          rose: "#F7E6E9", // New soft rose
+          lavender: "#EDE7F2", // New soft lavender
+          dark: "#4A4A48",
+          accent: "#C2C2B8",
+          translucent: "rgba(255, 255, 255, 0.4)", // More transparent
         },
       },
       fontFamily: {
@@ -26,8 +27,8 @@ export default {
         'story': '9/16',
       },
       borderRadius: {
-        'lumi': '2rem',
-        'lumi-lg': '3rem',
+        'lumi': '2.5rem', // Even more rounded
+        'lumi-lg': '4rem',
       },
     },
   },

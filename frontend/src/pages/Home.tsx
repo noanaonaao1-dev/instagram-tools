@@ -32,48 +32,51 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-lumi-beige overflow-hidden font-sans text-lumi-dark">
-      {/* Background blobs for a "looser" feel */}
+    <div className="relative min-h-screen bg-lumi-beige overflow-hidden font-sans text-lumi-dark selection:bg-lumi-rose selection:text-lumi-dark">
+      {/* Background blobs - more "fuwafuwa" */}
       <motion.div
         animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 50, 0],
-          y: [0, 30, 0]
+          scale: [1, 1.4, 1],
+          rotate: [0, 90, 0],
+          x: [0, 80, 0],
+          y: [0, 50, 0]
         }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="fixed -top-24 -left-24 w-[500px] h-[500px] bg-lumi-rose/20 rounded-full blur-[100px] opacity-60"
+        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+        className="fixed -top-48 -left-48 w-[800px] h-[800px] bg-lumi-rose/30 rounded-full blur-[140px] opacity-40 pointer-events-none"
       />
       <motion.div
         animate={{
-          scale: [1.2, 1, 1.2],
-          x: [0, -40, 0],
-          y: [0, -60, 0]
+          scale: [1.3, 1, 1.3],
+          rotate: [0, -45, 0],
+          x: [0, -100, 0],
+          y: [0, -80, 0]
         }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="fixed -bottom-48 -right-24 w-[600px] h-[600px] bg-lumi-sage/20 rounded-full blur-[120px] opacity-60"
+        transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
+        className="fixed -bottom-64 -right-48 w-[900px] h-[900px] bg-lumi-mist/40 rounded-full blur-[160px] opacity-40 pointer-events-none"
       />
       <motion.div
         animate={{
-          scale: [1, 1.3, 1],
-          x: [0, 100, 0],
-          y: [0, -100, 0]
+          scale: [1, 1.5, 1],
+          x: [0, 150, 0],
+          y: [0, -150, 0]
         }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-lumi-blue/10 rounded-full blur-[150px] opacity-40"
+        transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+        className="fixed top-1/4 left-1/4 w-[600px] h-[600px] bg-lumi-lavender/30 rounded-full blur-[180px] opacity-30 pointer-events-none"
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-24">
-        <header className="mb-20 md:mb-32 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-32">
+        <header className="mb-24 md:mb-40 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-7xl md:text-9xl font-serif tracking-tighter mb-6 text-lumi-dark font-light italic opacity-80">Lumi</h1>
-            <div className="flex items-center justify-center gap-6 text-lumi-dark/20">
-              <span className="h-[1px] w-8 bg-current" />
-              <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] font-light font-sans font-bold">Story Collective</span>
-              <span className="h-[1px] w-8 bg-current" />
+            <div className="text-[10px] uppercase tracking-[0.5em] text-lumi-dark/30 mb-8 font-medium">Digital Palette & Diagnostic</div>
+            <h1 className="text-8xl md:text-[12rem] font-serif tracking-tighter mb-8 text-lumi-dark font-light italic opacity-90 drop-shadow-sm">Lumi</h1>
+            <div className="flex items-center justify-center gap-8 text-lumi-dark/15">
+              <span className="h-[0.5px] w-12 bg-current" />
+              <span className="text-[9px] md:text-xs uppercase tracking-[1em] font-medium font-sans">Issue No. 01 — Aesthetic Stories</span>
+              <span className="h-[0.5px] w-12 bg-current" />
             </div>
           </motion.div>
         </header>
@@ -81,21 +84,21 @@ const Home = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-3 md:gap-x-6 gap-y-10 md:gap-y-16 mb-32"
+          transition={{ delay: 0.8, duration: 1.5 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-16 md:gap-y-24 mb-48"
         >
           {loading ? (
-            <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-[10px]">
-              Loading collection...
+            <div className="col-span-full py-32 text-center opacity-30 tracking-[0.5em] uppercase text-[9px] animate-pulse">
+              Collecting pieces...
             </div>
           ) : error ? (
-            <div className="col-span-full py-20 text-center text-lumi-dark/40 font-serif">
-              {error}
-              <button onClick={() => window.location.reload()} className="block mx-auto mt-4 text-[10px] underline tracking-widest">RETRY</button>
+            <div className="col-span-full py-32 text-center">
+              <p className="text-lumi-dark/40 font-serif text-sm italic">{error}</p>
+              <button onClick={() => window.location.reload()} className="mt-6 px-8 py-3 bg-white/50 backdrop-blur-md rounded-full text-[10px] tracking-[0.3em] uppercase hover:bg-white/80 transition-all border border-lumi-dark/5">RETRY</button>
             </div>
           ) : tools.length === 0 ? (
-            <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-[10px]">
-              No tools available.
+            <div className="col-span-full py-32 text-center opacity-30 tracking-[0.5em] uppercase text-[9px]">
+              Empty collection.
             </div>
           ) : tools.map((tool) => (
             <div key={tool.id} className="group">
@@ -112,37 +115,37 @@ const Home = () => {
           ))}
         </motion.div>
 
-        <section className="mt-32 py-24 border-t border-lumi-dark/5">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-serif mb-20 text-lumi-dark/70 italic">Lumi の楽しみ方</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-              <div className="space-y-6">
-                <div className="w-14 h-14 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto shadow-sm text-lumi-dark/30 font-serif text-lg italic border border-white">1.</div>
-                <h3 className="text-[10px] font-bold tracking-[0.3em] text-lumi-dark/60 uppercase">診断をつくる</h3>
-                <p className="text-[10px] md:text-[11px] text-lumi-dark/40 leading-relaxed font-serif px-4">
-                  気になるツールを選んで、あなたの名前を入力。自分だけの専用リンクを発行します。
+        <section className="mt-48 py-32 bg-white/30 backdrop-blur-xl rounded-[4rem] border border-white/50 shadow-sm">
+          <div className="max-w-4xl mx-auto px-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-serif mb-24 text-lumi-dark/80 italic font-light tracking-tight">Lumi の楽しみ方</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-20 md:gap-16">
+              <div className="space-y-8">
+                <div className="w-16 h-16 bg-lumi-rose/40 backdrop-blur-md rounded-full flex items-center justify-center mx-auto shadow-inner text-white font-serif text-xl italic border border-white/40">1</div>
+                <h3 className="text-xs font-bold tracking-[0.4em] text-lumi-dark/70 uppercase">診断をつくる</h3>
+                <p className="text-xs text-lumi-dark/50 leading-relaxed font-serif px-2">
+                  お好みのテーマを選んで、あなたの名前を入力。<br/>自分専用の特別なリンクを発行。
                 </p>
               </div>
-              <div className="space-y-6">
-                <div className="w-14 h-14 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto shadow-sm text-lumi-dark/30 font-serif text-lg italic border border-white">2.</div>
-                <h3 className="text-[10px] font-bold tracking-[0.3em] text-lumi-dark/60 uppercase">ストーリーでシェア</h3>
-                <p className="text-[10px] md:text-[11px] text-lumi-dark/40 leading-relaxed font-serif px-4">
-                  リンクをインスタグラムのストーリーでシェア。友達にあなたの印象を答えてもらいましょう。
+              <div className="space-y-8">
+                <div className="w-16 h-16 bg-lumi-mist/40 backdrop-blur-md rounded-full flex items-center justify-center mx-auto shadow-inner text-white font-serif text-xl italic border border-white/40">2</div>
+                <h3 className="text-xs font-bold tracking-[0.4em] text-lumi-dark/70 uppercase">ストーリーでシェア</h3>
+                <p className="text-xs text-lumi-dark/50 leading-relaxed font-serif px-2">
+                  リンクをインスタのストーリーへ。<br/>友達にあなたの印象を答えてもらいます。
                 </p>
               </div>
-              <div className="space-y-6">
-                <div className="w-14 h-14 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto shadow-sm text-lumi-dark/30 font-serif text-lg italic border border-white">3.</div>
-                <h3 className="text-[10px] font-bold tracking-[0.3em] text-lumi-dark/60 uppercase">結果をアンロック</h3>
-                <p className="text-[10px] md:text-[11px] text-lumi-dark/40 leading-relaxed font-serif px-4">
-                  回答が集まると診断結果がオープン！美しい画像として保存して、再びストーリーで共有。
+              <div className="space-y-8">
+                <div className="w-16 h-16 bg-lumi-lavender/40 backdrop-blur-md rounded-full flex items-center justify-center mx-auto shadow-inner text-white font-serif text-xl italic border border-white/40">3</div>
+                <h3 className="text-xs font-bold tracking-[0.4em] text-lumi-dark/70 uppercase">結果をアンロック</h3>
+                <p className="text-xs text-lumi-dark/50 leading-relaxed font-serif px-2">
+                  回答が集まると診断結果が公開。<br/>美しい画像として保存して、再び共有。
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <footer className="mt-24 text-center opacity-20 text-[8px] tracking-widest uppercase font-sans">
-          &copy; 2024 Lumi Studio. Minimal & Pure.
+        <footer className="mt-48 text-center opacity-30 text-[9px] tracking-[0.5em] uppercase font-sans">
+          &copy; 2024 Lumi &bull; Pure Aesthetic Studio
         </footer>
       </div>
     </div>
@@ -150,18 +153,18 @@ const Home = () => {
 };
 
 const ToolCard = ({ tool }: { tool: Tool }) => (
-  <div className="relative transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
-    <div className="aspect-square overflow-hidden mb-3 bg-lumi-pale rounded-[1.5rem] md:rounded-[2rem] shadow-sm ring-1 ring-black/[0.02]">
+  <div className="relative transition-all duration-700 ease-[0.22, 1, 0.36, 1] group-hover:scale-[1.02]">
+    <div className="aspect-[4/5] overflow-hidden mb-6 bg-white/40 backdrop-blur-md rounded-[3rem] shadow-sm ring-1 ring-white/60 group-hover:shadow-xl group-hover:shadow-lumi-rose/10 transition-all duration-700">
       <img
         src={tool.image}
         alt={tool.title}
-        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
+        className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100"
       />
     </div>
-    <div className="px-1 text-center">
-      <span className="text-[6px] uppercase tracking-[0.2em] text-lumi-dark/30 mb-1 block font-sans font-bold">{tool.tag}</span>
-      <h2 className="text-[10px] md:text-sm font-serif mb-0.5 text-lumi-dark/80 leading-tight">{tool.title}</h2>
-      <p className="hidden md:block text-[8px] text-lumi-dark/40 leading-relaxed line-clamp-1 font-sans">{tool.description}</p>
+    <div className="px-4 text-center">
+      <span className="text-[7px] uppercase tracking-[0.3em] text-lumi-dark/40 mb-2 block font-medium">{tool.tag}</span>
+      <h2 className="text-sm md:text-lg font-serif mb-1.5 text-lumi-dark/90 leading-tight tracking-wide">{tool.title}</h2>
+      <p className="text-[9px] md:text-[10px] text-lumi-dark/50 leading-relaxed line-clamp-2 font-serif font-light">{tool.description}</p>
     </div>
   </div>
 );

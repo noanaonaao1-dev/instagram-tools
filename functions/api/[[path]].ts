@@ -7,25 +7,25 @@ const app = new Hono<{ Bindings: { LUMI_KV: KVNamespace } }>().basePath('/api')
 const DEFAULT_TOOLS = [
   {
     id: 'palette-of-me',
-    title: 'ワタシの成分パレット',
-    description: '友達に答えてもらう、私のカラーパレット',
+    title: 'Nuance Palette : Me',
+    description: '移ろいゆく、私を構成する色の断片',
     image: 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=400',
     url: '/tools/palette-of-me',
     external: false,
-    tag: 'Original'
+    tag: 'Nuance'
   },
   {
     id: 'prism-of-me',
-    title: '心のかけら採集',
-    description: '他者視点の自分を可視化する結晶診断',
+    title: 'Mental Fragment : Prism',
+    description: '視線が織りなす、私だけの心の結晶',
     image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=400',
     url: '/tools/prism-of-me',
     external: false,
-    tag: 'New'
+    tag: 'Crystalline'
   },
   {
     id: 'external-example',
-    title: 'Lumi マガジン',
+    title: 'Lumi Magazine',
     description: '淡色女子のためのライフスタイルメディア',
     image: 'https://images.unsplash.com/photo-1516054653973-59bb77ec1499?q=80&w=400',
     url: 'https://example.com',

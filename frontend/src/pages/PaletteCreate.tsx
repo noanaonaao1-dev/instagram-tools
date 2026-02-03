@@ -52,10 +52,10 @@ const PaletteCreate = () => {
       >
         <div className="mb-12">
           <Sparkles className="mx-auto mb-6 text-lumi-dark/30" size={32} />
-          <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">ワタシの成分パレット</h1>
+          <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">Nuance Palette : Me</h1>
           <p className="text-sm text-lumi-dark/50 leading-relaxed px-4 font-serif italic">
             友達から見たあなたの色を、<br />
-            パレットに閉じ込めましょう。
+            ひとつのパレットに閉じ込めましょう。
           </p>
         </div>
 
