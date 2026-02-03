@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Box } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const PrismCreate = () => {
   const [name, setName] = useState('');
@@ -31,12 +32,25 @@ const PrismCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden font-sans">
       {/* Background blobs */}
-      <div className="fixed -top-24 -left-24 w-96 h-96 bg-lumi-rose/20 rounded-full blur-3xl opacity-50" />
-      <div className="fixed -bottom-24 -right-24 w-96 h-96 bg-lumi-sage/20 rounded-full blur-3xl opacity-50" />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], y: [0, 40, 0] }}
+        transition={{ duration: 20, repeat: Infinity }}
+        className="fixed -top-24 -left-24 w-[500px] h-[500px] bg-lumi-rose/10 rounded-full blur-[100px] opacity-50"
+      />
+      <motion.div
+        animate={{ scale: [1.2, 1, 1.2], y: [0, -40, 0] }}
+        transition={{ duration: 25, repeat: Infinity }}
+        className="fixed -bottom-24 -right-24 w-[500px] h-[500px] bg-lumi-sage/10 rounded-full blur-[100px] opacity-50"
+      />
 
-      <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="relative z-10 max-w-md w-full text-center bg-white/20 backdrop-blur-3xl p-10 md:p-16 rounded-[4rem] shadow-sm border border-white/60"
+      >
         <div className="mb-12">
           <Box className="mx-auto mb-6 text-lumi-dark/20" size={40} />
           <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">心のかけら採集</h1>
@@ -106,11 +120,7 @@ const PrismCreate = () => {
             <li>4. 目標人数に達すると「結晶」が解禁</li>
           </ul>
         </div>
-
-        <div className="mt-12 opacity-20 text-[9px] tracking-[0.5em] uppercase font-light">
-          Lock & Reveal System
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

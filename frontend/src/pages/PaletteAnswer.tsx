@@ -54,31 +54,41 @@ const PaletteAnswer = () => {
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let isMounted = true;
     if (id) {
       const timeoutId = setTimeout(() => {
-        setShowTimeout(true);
+        if (isMounted) setShowTimeout(true);
       }, 3000);
 
       fetch(`/api/palette/${id}`)
         .then(res => {
-          if (!res.ok) throw new Error('パレットが見つかりません');
+          if (!res.ok) {
+            if (res.status === 404) throw new Error('診断が見つかりません');
+            throw new Error('データの取得に失敗しました');
+          }
           return res.json();
         })
         .then(data => {
-          setSession(data);
-          setLoading(false);
-          clearTimeout(timeoutId);
+          if (isMounted) {
+            setSession(data);
+            setLoading(false);
+            clearTimeout(timeoutId);
+          }
         })
         .catch(err => {
           console.error(err);
-          setError(err.message);
-          setLoading(false);
-          clearTimeout(timeoutId);
+          if (isMounted) {
+            setError(err.message);
+            setLoading(false);
+            clearTimeout(timeoutId);
+          }
         });
 
-      return () => clearTimeout(timeoutId);
+      return () => {
+        isMounted = false;
+        clearTimeout(timeoutId);
+      };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleAnswer = (optionIndex: number) => {

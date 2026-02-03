@@ -41,6 +41,7 @@ const PrismAnswer = () => {
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let isMounted = true;
     if (id) {
       const answered = localStorage.getItem(`prism_answered_${id}`);
       if (answered && !isOwner) {
@@ -48,30 +49,39 @@ const PrismAnswer = () => {
       }
 
       const timeoutId = setTimeout(() => {
-        setShowTimeout(true);
+        if (isMounted) setShowTimeout(true);
       }, 3000);
 
       fetch(`/api/prism/${id}`)
         .then(res => {
-          if (!res.ok) throw new Error('診断が見つかりません');
+          if (!res.ok) {
+            if (res.status === 404) throw new Error('診断が見つかりません');
+            throw new Error('データの取得に失敗しました');
+          }
           return res.json();
         })
         .then(data => {
-          if (!data || !data.questions) throw new Error('データ形式が正しくありません');
-          setSession(data);
-          setLoading(false);
-          clearTimeout(timeoutId);
+          if (isMounted) {
+            if (!data || !data.questions) throw new Error('データ形式が正しくありません');
+            setSession(data);
+            setLoading(false);
+            clearTimeout(timeoutId);
+          }
         })
         .catch(err => {
           console.error(err);
-          setError(err.message);
-          setLoading(false);
-          clearTimeout(timeoutId);
+          if (isMounted) {
+            setError(err.message);
+            setLoading(false);
+            clearTimeout(timeoutId);
+          }
         });
 
-      return () => clearTimeout(timeoutId);
+      return () => {
+        isMounted = false;
+        clearTimeout(timeoutId);
+      };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isOwner]);
 
   const handleAnswer = (score: number) => {

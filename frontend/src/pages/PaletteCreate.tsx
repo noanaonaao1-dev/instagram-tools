@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const PaletteCreate = () => {
   const [name, setName] = useState('');
@@ -20,7 +21,6 @@ const PaletteCreate = () => {
       });
       const data = await res.json();
       if (data.id) {
-        // 通常はクリップボードにコピーしたりするが、ここでは回答画面へ遷移
         navigate(`/tools/palette-of-me/${data.id}?owner=true`);
       }
     } catch (err) {
@@ -31,12 +31,25 @@ const PaletteCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden font-sans">
       {/* Background blobs */}
-      <div className="fixed -top-12 -right-12 w-80 h-80 bg-lumi-blue/20 rounded-full blur-3xl opacity-40" />
-      <div className="fixed -bottom-12 -left-12 w-80 h-80 bg-lumi-rose/20 rounded-full blur-3xl opacity-40" />
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], x: [0, 20, 0] }}
+        transition={{ duration: 15, repeat: Infinity }}
+        className="fixed -top-12 -right-12 w-96 h-96 bg-lumi-blue/10 rounded-full blur-3xl opacity-40"
+      />
+      <motion.div
+        animate={{ scale: [1.1, 1, 1.1], x: [0, -20, 0] }}
+        transition={{ duration: 18, repeat: Infinity }}
+        className="fixed -bottom-12 -left-12 w-96 h-96 bg-lumi-rose/10 rounded-full blur-3xl opacity-40"
+      />
 
-      <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="relative z-10 max-w-md w-full text-center bg-white/30 backdrop-blur-2xl p-10 md:p-16 rounded-[4rem] shadow-sm border border-white/80"
+      >
         <div className="mb-12">
           <Sparkles className="mx-auto mb-6 text-lumi-dark/30" size={32} />
           <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">ワタシの成分パレット</h1>
@@ -82,11 +95,7 @@ const PaletteCreate = () => {
             <li>4. リアルタイムにあなたの色が混ざり合います</li>
           </ul>
         </div>
-
-        <div className="mt-12 opacity-30 text-[10px] tracking-[0.3em] uppercase">
-          Ephemeral & Nuance
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
