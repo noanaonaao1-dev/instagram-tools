@@ -73,7 +73,17 @@ const PaletteCreate = () => {
           </button>
         </form>
 
-        <div className="mt-20 opacity-30 text-[10px] tracking-[0.3em] uppercase">
+        <div className="mt-16 pt-8 border-t border-lumi-dark/5">
+          <p className="text-[10px] text-lumi-dark/30 mb-4 tracking-widest uppercase">How to Play</p>
+          <ul className="text-[10px] text-lumi-dark/40 space-y-2 font-serif italic">
+            <li>1. あなたの名前を入力してリンクを発行</li>
+            <li>2. ストーリーでリンクをシェア</li>
+            <li>3. 友達があなたの「成分（色）」を回答</li>
+            <li>4. リアルタイムにあなたの色が混ざり合います</li>
+          </ul>
+        </div>
+
+        <div className="mt-12 opacity-30 text-[10px] tracking-[0.3em] uppercase">
           Ephemeral & Nuance
         </div>
       </div>

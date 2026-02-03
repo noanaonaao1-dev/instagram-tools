@@ -97,7 +97,17 @@ const PrismCreate = () => {
           </button>
         </form>
 
-        <div className="mt-24 opacity-20 text-[9px] tracking-[0.5em] uppercase font-light">
+        <div className="mt-16 pt-8 border-t border-lumi-dark/5">
+          <p className="text-[10px] text-lumi-dark/30 mb-4 tracking-widest uppercase">How to Play</p>
+          <ul className="text-[10px] text-lumi-dark/40 space-y-2 font-serif italic text-left max-w-[200px] mx-auto">
+            <li>1. 自分の名前と目標人数を設定</li>
+            <li>2. 発行されたリンクをシェア</li>
+            <li>3. 友達があなたへの印象を回答</li>
+            <li>4. 目標人数に達すると「結晶」が解禁</li>
+          </ul>
+        </div>
+
+        <div className="mt-12 opacity-20 text-[9px] tracking-[0.5em] uppercase font-light">
           Lock & Reveal System
         </div>
       </div>

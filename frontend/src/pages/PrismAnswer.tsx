@@ -224,9 +224,13 @@ const PrismAnswer = () => {
   }, [currentStep, session]);
 
   if (loading) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center">
-      <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6" />
-      <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Prism...</div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center relative overflow-hidden">
+      <div className="absolute top-[20%] left-[20%] w-32 h-32 bg-lumi-blue/10 rotate-45 blur-xl animate-pulse" />
+      <div className="absolute bottom-[20%] right-[20%] w-32 h-32 bg-lumi-rose/10 -rotate-45 blur-xl animate-pulse delay-700" />
+      <div className="relative z-10">
+        <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6 mx-auto" />
+        <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Prism...</div>
+      </div>
     </div>
   );
 
@@ -245,7 +249,12 @@ const PrismAnswer = () => {
   const blurValue = Math.max(0, 20 * (1 - progress));
 
   return (
-    <div className="min-h-screen bg-[#F8F8F4] flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-[#F8F8F4] flex items-center justify-center px-6 py-12 relative overflow-hidden">
+      {/* Crystalline Background elements */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none opacity-20">
+        <div className="absolute top-[10%] left-[10%] w-64 h-64 bg-lumi-blue/20 rotate-45 blur-2xl" />
+        <div className="absolute bottom-[10%] right-[10%] w-64 h-64 bg-lumi-rose/20 -rotate-45 blur-2xl" />
+      </div>
       <AnimatePresence mode="wait">
         {currentStep === -1 && (
            <motion.div

@@ -104,9 +104,12 @@ const PaletteAnswer = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center">
-      <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6" />
-      <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Palette...</div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-br from-[#F5F5F0] via-[#EAE7E2] to-[#D9D9D2] opacity-40 blur-3xl" />
+      <div className="relative z-10">
+        <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6 mx-auto" />
+        <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Palette...</div>
+      </div>
     </div>
   );
 
@@ -122,14 +125,17 @@ const PaletteAnswer = () => {
     <div className="min-h-screen bg-lumi-beige overflow-hidden">
       {/* Background Gradient */}
       <div
-        className="fixed inset-0 transition-all duration-[2000ms] ease-out opacity-60"
+        className="fixed inset-0 transition-all duration-[3000ms] ease-out opacity-40"
         style={{
-          background: `radial-gradient(circle at 30% 30%, ${currentColors[0]}, transparent 70%),
-                       radial-gradient(circle at 70% 20%, ${currentColors[1]}, transparent 70%),
-                       radial-gradient(circle at 50% 80%, ${currentColors[2]}, transparent 70%)`,
-          filter: 'blur(60px)'
+          background: `radial-gradient(circle at 20% 30%, ${currentColors[0]}, transparent 60%),
+                       radial-gradient(circle at 80% 20%, ${currentColors[1]}, transparent 60%),
+                       radial-gradient(circle at 40% 70%, ${currentColors[2]}, transparent 60%),
+                       radial-gradient(circle at 70% 80%, ${currentColors[0]}, transparent 60%)`,
+          filter: 'blur(80px)'
         }}
       />
+      {/* Texture Overlay */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/handmade-paper.png')]" />
 
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         <AnimatePresence mode="wait">
