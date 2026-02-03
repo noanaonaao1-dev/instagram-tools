@@ -56,8 +56,8 @@ const PaletteAnswer = () => {
   useEffect(() => {
     if (id) {
       const timeoutId = setTimeout(() => {
-        if (loading) setShowTimeout(true);
-      }, 5000);
+        setShowTimeout(true);
+      }, 3000);
 
       fetch(`/api/palette/${id}`)
         .then(res => {
@@ -78,7 +78,8 @@ const PaletteAnswer = () => {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [id, loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers, optionIndex];
@@ -211,8 +212,8 @@ const PaletteAnswer = () => {
                 Question {currentStep + 1} / {QUESTIONS.length}
               </span>
               <h2 className="text-2xl font-serif mb-12 text-center text-lumi-dark leading-relaxed">
-                {session.creatorName}さんの<br />
-                {QUESTIONS[currentStep].text}
+                {session?.creatorName}さんの<br />
+                {QUESTIONS[currentStep]?.text}
               </h2>
               <div className="space-y-4">
                 {QUESTIONS[currentStep].options.map((opt, i) => (
@@ -259,7 +260,7 @@ const PaletteAnswer = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">の構成成分 :</h3>
+                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">ワタシの成分パレット :</h3>
                     <h2 className="text-4xl font-serif text-lumi-dark/90 tracking-tighter mb-8">{session.creatorName}</h2>
                     <div className="space-y-2">
                       {answers.map((ans, i) => (

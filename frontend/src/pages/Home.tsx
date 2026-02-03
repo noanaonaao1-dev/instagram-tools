@@ -94,9 +94,9 @@ const Home = () => {
               </div>
               <div className="space-y-4">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm text-lumi-dark/30 font-serif italic">3.</div>
-                <h3 className="text-xs font-bold tracking-widest text-lumi-dark/60 uppercase">結果をReveal</h3>
+                <h3 className="text-xs font-bold tracking-widest text-lumi-dark/60 uppercase">結果をアンロック</h3>
                 <p className="text-[10px] text-lumi-dark/40 leading-relaxed font-serif">
-                  回答が集まると診断結果がアンロック！美しい画像として保存して、再びストーリーで共有。
+                  回答が集まると診断結果がオープン！美しい画像として保存して、再びストーリーで共有。
                 </p>
               </div>
             </div>

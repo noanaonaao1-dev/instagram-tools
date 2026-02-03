@@ -7,7 +7,7 @@ const app = new Hono<{ Bindings: { LUMI_KV: KVNamespace } }>().basePath('/api')
 const DEFAULT_TOOLS = [
   {
     id: 'palette-of-me',
-    title: '私を構成する成分表',
+    title: 'ワタシの成分パレット',
     description: '友達に答えてもらう、私のカラーパレット',
     image: 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=400',
     url: '/tools/palette-of-me',
@@ -16,7 +16,7 @@ const DEFAULT_TOOLS = [
   },
   {
     id: 'prism-of-me',
-    title: '心のプリズム',
+    title: '心のかけら採集',
     description: '他者視点の自分を可視化する結晶診断',
     image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=400',
     url: '/tools/prism-of-me',
@@ -101,7 +101,10 @@ app.get('/prism/:id', async (c) => {
   if (!sessionJson) return c.json({ error: 'Not Found' }, 404)
 
   const session = JSON.parse(sessionJson)
-  const questions = session.questionIds.map((qid: number) => PRISM_QUESTIONS.find(q => q.id === qid))
+  // Filter out any undefined questions to prevent frontend crashes
+  const questions = session.questionIds
+    .map((qid: number) => PRISM_QUESTIONS.find(q => q.id === qid))
+    .filter((q: any) => q !== undefined)
 
   return c.json({ ...session, questions })
 })

@@ -39,7 +39,7 @@ const PaletteCreate = () => {
       <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
         <div className="mb-12">
           <Sparkles className="mx-auto mb-6 text-lumi-dark/30" size={32} />
-          <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">私を構成する成分表</h1>
+          <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">ワタシの成分パレット</h1>
           <p className="text-sm text-lumi-dark/50 leading-relaxed px-4 font-serif italic">
             友達から見たあなたの色を、<br />
             パレットに閉じ込めましょう。

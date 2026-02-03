@@ -48,8 +48,8 @@ const PrismAnswer = () => {
       }
 
       const timeoutId = setTimeout(() => {
-        if (loading) setShowTimeout(true);
-      }, 5000);
+        setShowTimeout(true);
+      }, 3000);
 
       fetch(`/api/prism/${id}`)
         .then(res => {
@@ -71,7 +71,8 @@ const PrismAnswer = () => {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [id, isOwner, loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isOwner]);
 
   const handleAnswer = (score: number) => {
     if (!session) return;
@@ -301,7 +302,7 @@ const PrismAnswer = () => {
             <div className="text-center mb-12">
               <span className="text-[10px] uppercase tracking-[0.4em] text-lumi-dark/30 mb-2 block">Part {currentStep + 1} / 10</span>
               <h2 className="text-xl font-serif text-lumi-dark leading-relaxed px-4 h-20 flex items-center justify-center">
-                {session.questions[currentStep].text}
+                {session.questions[currentStep]?.text}
               </h2>
             </div>
             <div className="grid grid-cols-1 gap-3">
@@ -379,7 +380,7 @@ const PrismAnswer = () => {
                     <div ref={canvasRef} className="w-[200px] h-[200px] flex items-center justify-center mx-auto" />
 
                     <div className="mt-8">
-                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">心のプリズム :</h3>
+                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">心のかけら採集 :</h3>
                       <h2 className="text-3xl font-serif text-lumi-dark/90 tracking-tighter mb-4">{session.creatorName}</h2>
                       <div className="inline-block px-4 py-1.5 border border-lumi-dark/10 rounded-full text-[10px] font-serif text-lumi-dark/50 tracking-widest italic">
                         {isRevealed ? twoName : '？？？'}

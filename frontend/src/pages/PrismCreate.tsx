@@ -39,7 +39,7 @@ const PrismCreate = () => {
       <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
         <div className="mb-12">
           <Box className="mx-auto mb-6 text-lumi-dark/20" size={40} />
-          <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">心のプリズム</h1>
+          <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">心のかけら採集</h1>
           <p className="text-[10px] uppercase tracking-[0.3em] text-lumi-dark/30 leading-relaxed mb-8 font-sans font-bold">
             他者視点診断
           </p>
