@@ -30,6 +30,7 @@ const PrismAnswer = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showTimeout, setShowTimeout] = useState(false);
   const [currentStep, setCurrentStep] = useState(isOwner ? -1 : 0); // -1: Link, 0-9: Quiz, 10: Message, 11: Result
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [message, setMessage] = useState('');
@@ -46,22 +47,31 @@ const PrismAnswer = () => {
         setCurrentStep(11);
       }
 
+      const timeoutId = setTimeout(() => {
+        if (loading) setShowTimeout(true);
+      }, 5000);
+
       fetch(`/api/prism/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('診断が見つかりません');
           return res.json();
         })
         .then(data => {
+          if (!data || !data.questions) throw new Error('データ形式が正しくありません');
           setSession(data);
           setLoading(false);
+          clearTimeout(timeoutId);
         })
         .catch(err => {
           console.error(err);
           setError(err.message);
           setLoading(false);
+          clearTimeout(timeoutId);
         });
+
+      return () => clearTimeout(timeoutId);
     }
-  }, [id, isOwner]);
+  }, [id, isOwner, loading]);
 
   const handleAnswer = (score: number) => {
     if (!session) return;
@@ -130,6 +140,7 @@ const PrismAnswer = () => {
   };
 
   const getTwoName = (scores: Record<string, number>) => {
+    if (!scores || Object.keys(scores).length < 2) return '未完成の結晶';
     const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const top = sorted[0][0];
     const second = sorted[1][0];
@@ -230,6 +241,13 @@ const PrismAnswer = () => {
       <div className="relative z-10">
         <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6 mx-auto" />
         <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Prism...</div>
+
+        {showTimeout && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-12">
+            <p className="text-xs text-lumi-dark/40 mb-4 font-serif">読み込みに時間がかかっています...</p>
+            <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-60">Homeに戻る</Link>
+          </motion.div>
+        )}
       </div>
     </div>
   );
@@ -333,7 +351,7 @@ const PrismAnswer = () => {
             {!isRevealed && (
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-[10px] uppercase tracking-[0.5em] opacity-30">Lock & Reveal</span>
+                  <span className="text-[10px] uppercase tracking-[0.5em] opacity-30">アンロック状況</span>
                 </div>
                 <div className="text-2xl font-serif opacity-70 mb-1">
                   {session.responses.length} / {session.targetCount}
@@ -353,15 +371,15 @@ const PrismAnswer = () => {
 
                <div className="relative h-full flex flex-col items-center justify-between py-16 px-8 text-center">
                   <div className="flex justify-between w-full text-lumi-dark/20 text-[7px] tracking-[0.4em] uppercase">
-                    <span>Prism Report</span>
-                    <span>{isRevealed ? 'Unlocked' : 'Locked'}</span>
+                    <span>診断レポート</span>
+                    <span>{isRevealed ? '完成' : '未完成'}</span>
                   </div>
 
                   <div className={`transition-all duration-1000 ${!isRevealed ? 'grayscale' : ''}`} style={{ filter: `blur(${blurValue}px)` }}>
                     <div ref={canvasRef} className="w-[200px] h-[200px] flex items-center justify-center mx-auto" />
 
                     <div className="mt-8">
-                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">The prism of</h3>
+                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">心のプリズム :</h3>
                       <h2 className="text-3xl font-serif text-lumi-dark/90 tracking-tighter mb-4">{session.creatorName}</h2>
                       <div className="inline-block px-4 py-1.5 border border-lumi-dark/10 rounded-full text-[10px] font-serif text-lumi-dark/50 tracking-widest italic">
                         {isRevealed ? twoName : '？？？'}
@@ -378,7 +396,7 @@ const PrismAnswer = () => {
                   <div className="w-full flex-1 flex flex-col justify-end">
                     {isRevealed ? (
                       <div className="space-y-4 mb-8 text-left">
-                        <div className="text-[8px] uppercase tracking-widest text-lumi-dark/20 border-b border-lumi-dark/5 pb-2">Friend Messages</div>
+                        <div className="text-[8px] uppercase tracking-widest text-lumi-dark/20 border-b border-lumi-dark/5 pb-2">友達からのメッセージ</div>
                         <div className="max-h-24 overflow-hidden text-lumi-dark/50 text-[9px] font-serif leading-relaxed italic space-y-2">
                           {session.responses.slice(0, 3).map((r, i) => (
                             <p key={i}>"{r.message}"</p>
@@ -393,7 +411,7 @@ const PrismAnswer = () => {
 
                     {/* Mention Space */}
                     <div className="mb-10 text-center">
-                      <div className="text-[7px] tracking-[0.3em] text-lumi-dark/10 mb-2 uppercase">Mention friends to reveal your prism</div>
+                      <div className="text-[7px] tracking-[0.3em] text-lumi-dark/10 mb-2 uppercase">メンションして結果をシェア</div>
                       <div className="h-14 border border-dashed border-lumi-dark/10 rounded-lg flex items-center justify-center">
                         <span className="text-[8px] text-lumi-dark/10 font-serif italic">@mention_space</span>
                       </div>

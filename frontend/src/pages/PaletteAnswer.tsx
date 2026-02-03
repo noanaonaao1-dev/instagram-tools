@@ -46,6 +46,7 @@ const PaletteAnswer = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showTimeout, setShowTimeout] = useState(false);
   const [currentStep, setCurrentStep] = useState(isOwner ? -1 : 0); // -1: Intro/Link Share, 0+: Questions, -2: Result
   const [answers, setAnswers] = useState<number[]>([]);
   const [currentColors, setCurrentColors] = useState(["#F5F5F0", "#EAE7E2", "#D9D9D2"]);
@@ -54,6 +55,10 @@ const PaletteAnswer = () => {
 
   useEffect(() => {
     if (id) {
+      const timeoutId = setTimeout(() => {
+        if (loading) setShowTimeout(true);
+      }, 5000);
+
       fetch(`/api/palette/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('パレットが見つかりません');
@@ -62,14 +67,18 @@ const PaletteAnswer = () => {
         .then(data => {
           setSession(data);
           setLoading(false);
+          clearTimeout(timeoutId);
         })
         .catch(err => {
           console.error(err);
           setError(err.message);
           setLoading(false);
+          clearTimeout(timeoutId);
         });
+
+      return () => clearTimeout(timeoutId);
     }
-  }, [id]);
+  }, [id, loading]);
 
   const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers, optionIndex];
@@ -109,6 +118,13 @@ const PaletteAnswer = () => {
       <div className="relative z-10">
         <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6 mx-auto" />
         <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Palette...</div>
+
+        {showTimeout && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-12">
+            <p className="text-xs text-lumi-dark/40 mb-4 font-serif">読み込みに時間がかかっています...</p>
+            <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-60">Homeに戻る</Link>
+          </motion.div>
+        )}
       </div>
     </div>
   );
@@ -238,12 +254,12 @@ const PaletteAnswer = () => {
 
                 <div className="relative h-full flex flex-col items-center justify-between py-16 px-8 text-center">
                   <div className="flex justify-between w-full text-lumi-dark/30 text-[8px] tracking-[0.4em] uppercase">
-                    <span>Lumi Palette</span>
+                    <span>カラーパレット</span>
                     <span>No. {id?.substring(0, 4).toUpperCase()}</span>
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">The Palette of</h3>
+                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">の構成成分 :</h3>
                     <h2 className="text-4xl font-serif text-lumi-dark/90 tracking-tighter mb-8">{session.creatorName}</h2>
                     <div className="space-y-2">
                       {answers.map((ans, i) => (
@@ -257,7 +273,7 @@ const PaletteAnswer = () => {
                   <div className="w-full">
                     {/* Space for mention */}
                     <div className="border-t border-lumi-dark/10 pt-8 mb-4">
-                      <div className="text-[10px] uppercase tracking-widest text-lumi-dark/30 mb-8">Write mention here</div>
+                      <div className="text-[10px] uppercase tracking-widest text-lumi-dark/30 mb-8">メンション用スペース</div>
                       <div className="h-12 w-full border border-dashed border-lumi-dark/20 rounded-lg" />
                     </div>
                     <div className="flex justify-between items-end text-lumi-dark/30 text-[7px] tracking-[0.2em] uppercase">
