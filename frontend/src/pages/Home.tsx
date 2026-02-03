@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 
 interface Tool {
   id: string;
@@ -15,6 +14,7 @@ interface Tool {
 const Home = () => {
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/tools')
@@ -25,70 +25,75 @@ const Home = () => {
       .then(data => setTools(data))
       .catch(err => {
         console.error(err);
+        setError('データの取得に失敗しました');
       })
       .finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-16 md:py-24">
-      <header className="mb-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-serif tracking-tighter mb-6 text-lumi-dark font-light">Lumi</h1>
-        <div className="flex items-center justify-center gap-4 text-lumi-dark/40">
-          <div className="h-[1px] w-8 bg-current"></div>
-          <p className="text-[10px] uppercase tracking-[0.4em]">Story Diagnostic & Collective</p>
-          <div className="h-[1px] w-8 bg-current"></div>
+    <div className="relative min-h-screen bg-lumi-beige overflow-hidden">
+      {/* Background blobs for a "looser" feel */}
+      <div className="fixed -top-24 -left-24 w-96 h-96 bg-lumi-rose/30 rounded-full blur-3xl opacity-50" />
+      <div className="fixed -bottom-24 -right-24 w-96 h-96 bg-lumi-sage/30 rounded-full blur-3xl opacity-50" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 py-10 md:py-20">
+        <header className="mb-12 md:mb-16 text-center">
+          <h1 className="text-5xl md:text-6xl font-serif tracking-tighter mb-4 text-lumi-dark font-light italic text-lumi-dark/80">Lumi</h1>
+          <div className="flex items-center justify-center gap-4 text-lumi-dark/20">
+            <span className="text-[10px] uppercase tracking-[0.5em] font-light font-sans font-bold">Story Collective</span>
+          </div>
+        </header>
+
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-2 md:gap-x-4 gap-y-6 md:gap-y-10">
+          {loading ? (
+            <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-[10px]">
+              Loading collection...
+            </div>
+          ) : error ? (
+            <div className="col-span-full py-20 text-center text-lumi-dark/40 font-serif">
+              {error}
+              <button onClick={() => window.location.reload()} className="block mx-auto mt-4 text-[10px] underline tracking-widest">RETRY</button>
+            </div>
+          ) : tools.length === 0 ? (
+            <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-[10px]">
+              No tools available.
+            </div>
+          ) : tools.map((tool) => (
+            <div key={tool.id} className="group">
+              {tool.external ? (
+                <a href={tool.url} target="_blank" rel="noopener noreferrer" className="block">
+                  <ToolCard tool={tool} />
+                </a>
+              ) : (
+                <Link to={tool.url} className="block">
+                  <ToolCard tool={tool} />
+                </Link>
+              )}
+            </div>
+          ))}
         </div>
-      </header>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-        {loading ? (
-          <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-xs">
-            Loading collection...
-          </div>
-        ) : tools.length === 0 ? (
-          <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-xs">
-            No tools available.
-          </div>
-        ) : tools.map((tool, index) => (
-          <div key={tool.id} className={`group ${index % 2 === 1 ? 'md:mt-12' : ''}`}>
-            {tool.external ? (
-              <a href={tool.url} target="_blank" rel="noopener noreferrer" className="block">
-                <ToolCard tool={tool} />
-              </a>
-            ) : (
-              <Link to={tool.url} className="block">
-                <ToolCard tool={tool} />
-              </Link>
-            )}
-          </div>
-        ))}
+        <footer className="mt-32 text-center opacity-20 text-[8px] tracking-widest uppercase font-sans">
+          &copy; 2024 Lumi Studio. Minimal & Pure.
+        </footer>
       </div>
-
-      <footer className="mt-32 text-center opacity-40 text-xs tracking-widest uppercase">
-        &copy; 2024 Lumi Studio. Minimal & Pure.
-      </footer>
     </div>
   );
 };
 
 const ToolCard = ({ tool }: { tool: Tool }) => (
-  <div className="relative transition-all duration-700 ease-out group-hover:translate-y-[-4px]">
-    <div className="aspect-square overflow-hidden mb-5 bg-lumi-pale rounded-lumi ring-1 ring-black/[0.05]">
+  <div className="relative transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
+    <div className="aspect-square overflow-hidden mb-3 bg-lumi-pale rounded-[1.5rem] md:rounded-[2rem] shadow-sm ring-1 ring-black/[0.02]">
       <img
         src={tool.image}
         alt={tool.title}
-        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
       />
     </div>
-    <div className="flex justify-between items-start px-2">
-      <div>
-        <span className="text-[8px] uppercase tracking-[0.2em] text-lumi-dark/40 mb-1.5 block">{tool.tag}</span>
-        <h2 className="text-lg md:text-xl font-serif mb-1.5 text-lumi-dark leading-tight">{tool.title}</h2>
-        <p className="text-[11px] text-lumi-dark/60 leading-relaxed line-clamp-2">{tool.description}</p>
-      </div>
-      <div className="pt-6">
-        <Sparkles size={16} className="text-lumi-dark/20 group-hover:text-lumi-dark/60 transition-colors" />
-      </div>
+    <div className="px-1 text-center">
+      <span className="text-[6px] uppercase tracking-[0.2em] text-lumi-dark/30 mb-1 block font-sans font-bold">{tool.tag}</span>
+      <h2 className="text-[10px] md:text-sm font-serif mb-0.5 text-lumi-dark/80 leading-tight">{tool.title}</h2>
+      <p className="hidden md:block text-[8px] text-lumi-dark/40 leading-relaxed line-clamp-1 font-sans">{tool.description}</p>
     </div>
   </div>
 );

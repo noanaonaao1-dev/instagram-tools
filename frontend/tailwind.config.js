@@ -20,7 +20,7 @@ export default {
       },
       fontFamily: {
         serif: ['"Noto Serif JP"', '"Playfair Display"', 'serif'],
-        sans: ['"Inter"', 'sans-serif'],
+        sans: ['"M PLUS Rounded 1c"', '"Inter"', 'sans-serif'],
       },
       aspectRatio: {
         'story': '9/16',

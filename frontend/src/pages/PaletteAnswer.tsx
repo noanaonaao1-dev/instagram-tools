@@ -44,6 +44,8 @@ const PaletteAnswer = () => {
   const isOwner = searchParams.get('owner') === 'true';
 
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState(isOwner ? -1 : 0); // -1: Intro/Link Share, 0+: Questions, -2: Result
   const [answers, setAnswers] = useState<number[]>([]);
   const [currentColors, setCurrentColors] = useState(["#F5F5F0", "#EAE7E2", "#D9D9D2"]);
@@ -53,9 +55,19 @@ const PaletteAnswer = () => {
   useEffect(() => {
     if (id) {
       fetch(`/api/palette/${id}`)
-        .then(res => res.json())
-        .then(data => setSession(data))
-        .catch(err => console.error(err));
+        .then(res => {
+          if (!res.ok) throw new Error('パレットが見つかりません');
+          return res.json();
+        })
+        .then(data => {
+          setSession(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setError(err.message);
+          setLoading(false);
+        });
     }
   }, [id]);
 
@@ -91,7 +103,20 @@ const PaletteAnswer = () => {
     }
   };
 
-  if (!session) return <div className="min-h-screen flex items-center justify-center font-serif opacity-50">Loading...</div>;
+  if (loading) return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center">
+      <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6" />
+      <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Palette...</div>
+    </div>
+  );
+
+  if (error || !session) return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-lumi-beige p-10 text-center">
+      <h2 className="text-xl font-serif text-lumi-dark mb-4">{error || 'Session Not Found'}</h2>
+      <p className="text-sm text-lumi-dark/40 mb-8 font-serif">お探しのパレットは見つからなかったか、期限が切れている可能性があります。</p>
+      <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-40">Back to Home</Link>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-lumi-beige overflow-hidden">

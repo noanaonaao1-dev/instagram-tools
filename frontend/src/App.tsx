@@ -8,7 +8,7 @@ import PrismAnswer from './pages/PrismAnswer';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#F5F5F0] text-[#4A4A4A]">
+      <div className="min-h-screen bg-lumi-beige text-lumi-dark font-sans">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tools/palette-of-me" element={<PaletteCreate />} />

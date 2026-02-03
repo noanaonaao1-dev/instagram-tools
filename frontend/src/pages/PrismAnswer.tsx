@@ -28,6 +28,8 @@ const PrismAnswer = () => {
   const isOwner = searchParams.get('owner') === 'true';
 
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState(isOwner ? -1 : 0); // -1: Link, 0-9: Quiz, 10: Message, 11: Result
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [message, setMessage] = useState('');
@@ -45,9 +47,19 @@ const PrismAnswer = () => {
       }
 
       fetch(`/api/prism/${id}`)
-        .then(res => res.json())
-        .then(data => setSession(data))
-        .catch(err => console.error(err));
+        .then(res => {
+          if (!res.ok) throw new Error('診断が見つかりません');
+          return res.json();
+        })
+        .then(data => {
+          setSession(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setError(err.message);
+          setLoading(false);
+        });
     }
   }, [id, isOwner]);
 
@@ -211,7 +223,20 @@ const PrismAnswer = () => {
     }
   }, [currentStep, session]);
 
-  if (!session) return <div className="min-h-screen flex items-center justify-center font-serif opacity-30 tracking-widest">Loading...</div>;
+  if (loading) return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center">
+      <div className="w-12 h-12 border-2 border-lumi-dark/5 border-t-lumi-dark/20 rounded-full animate-spin mb-6" />
+      <div className="font-serif opacity-30 tracking-[0.3em] text-[10px] uppercase">Loading Prism...</div>
+    </div>
+  );
+
+  if (error || !session) return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F8F4] p-10 text-center">
+      <h2 className="text-xl font-serif text-lumi-dark mb-4">{error || 'Session Not Found'}</h2>
+      <p className="text-sm text-lumi-dark/40 mb-8 font-serif">お探しの診断は見つからなかったか、期限が切れている可能性があります。</p>
+      <Link to="/" className="text-[10px] uppercase tracking-[0.2em] underline opacity-40">Back to Home</Link>
+    </div>
+  );
 
   const scores = getAggregatedScores();
   const twoName = getTwoName(scores);

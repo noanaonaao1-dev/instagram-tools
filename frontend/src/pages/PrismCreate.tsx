@@ -31,17 +31,20 @@ const PrismCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-[#F8F8F4]">
-      <div className="max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-lumi-lg shadow-sm border border-black/[0.03]">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden">
+      {/* Background blobs */}
+      <div className="fixed -top-24 -left-24 w-96 h-96 bg-lumi-rose/20 rounded-full blur-3xl opacity-50" />
+      <div className="fixed -bottom-24 -right-24 w-96 h-96 bg-lumi-sage/20 rounded-full blur-3xl opacity-50" />
+
+      <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
         <div className="mb-12">
           <Box className="mx-auto mb-6 text-lumi-dark/20" size={40} />
-          <h1 className="text-4xl font-serif mb-4 text-lumi-dark font-light tracking-tighter">心のプリズム</h1>
-          <p className="text-[11px] uppercase tracking-[0.3em] text-lumi-dark/40 leading-relaxed mb-8">
-            先着解放型・他者視点診断
+          <h1 className="text-4xl font-serif mb-4 text-lumi-dark/80 font-light tracking-tighter">心のプリズム</h1>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-lumi-dark/30 leading-relaxed mb-8 font-sans font-bold">
+            他者視点診断
           </p>
-          <p className="text-sm text-lumi-dark/60 leading-relaxed px-4 font-serif">
-            友達があなたに抱く印象が、一つの「結晶」を紡ぎます。<br />
-            設定した人数に達すると、あなたの本当の輝きが明らかに。
+          <p className="text-sm text-lumi-dark/50 leading-relaxed px-4 font-serif italic">
+            友達があなたに抱く印象が、<br />一つの「結晶」を紡ぎます。
           </p>
         </div>
 
@@ -82,12 +85,15 @@ const PrismCreate = () => {
           <button
             type="submit"
             disabled={loading || !name}
-            className="group flex items-center justify-center gap-4 mx-auto py-5 px-16 bg-white border border-lumi-dark/10 shadow-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-30"
+            className="group flex flex-nowrap items-center justify-center gap-3 mx-auto py-5 px-10 bg-white border border-white/60 shadow-xl shadow-lumi-dark/5 rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-30"
           >
-            <span className="text-xs tracking-[0.3em] uppercase font-light text-lumi-dark/70">
-              {loading ? 'Creating...' : '結晶の核を生成する'}
+            <span
+              className="text-[10px] uppercase font-bold text-lumi-dark/60"
+              style={{ whiteSpace: 'nowrap', display: 'block' }}
+            >
+              {loading ? 'Creating...' : '診断をはじめる'}
             </span>
-            <ArrowRight size={14} className="text-lumi-dark/40 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="text-lumi-dark/30 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
 

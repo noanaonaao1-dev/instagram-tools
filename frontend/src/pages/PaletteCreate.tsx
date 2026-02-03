@@ -31,14 +31,18 @@ const PaletteCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige">
-      <div className="max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-lumi-lg shadow-sm border border-white/40">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige relative overflow-hidden">
+      {/* Background blobs */}
+      <div className="fixed -top-12 -right-12 w-80 h-80 bg-lumi-blue/20 rounded-full blur-3xl opacity-40" />
+      <div className="fixed -bottom-12 -left-12 w-80 h-80 bg-lumi-rose/20 rounded-full blur-3xl opacity-40" />
+
+      <div className="relative z-10 max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-[3.5rem] shadow-sm border border-white/60">
         <div className="mb-12">
           <Sparkles className="mx-auto mb-6 text-lumi-dark/30" size={32} />
-          <h1 className="text-3xl font-serif mb-4 text-lumi-dark">私を構成する成分表</h1>
-          <p className="text-sm text-lumi-dark/60 leading-relaxed px-4">
-            友達にあなたの印象を答えてもらい、<br />
-            あなただけの色を完成させましょう。
+          <h1 className="text-3xl font-serif mb-4 text-lumi-dark/80 font-light">私を構成する成分表</h1>
+          <p className="text-sm text-lumi-dark/50 leading-relaxed px-4 font-serif italic">
+            友達から見たあなたの色を、<br />
+            パレットに閉じ込めましょう。
           </p>
         </div>
 
@@ -57,12 +61,15 @@ const PaletteCreate = () => {
           <button
             type="submit"
             disabled={loading || !name}
-            className="group flex items-center justify-center gap-4 mx-auto py-4 px-14 bg-lumi-dark text-white rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-40"
+            className="group flex flex-nowrap items-center justify-center gap-3 mx-auto py-4 px-10 bg-lumi-dark text-white rounded-full shadow-xl shadow-lumi-dark/10 hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-40"
           >
-            <span className="text-xs tracking-[0.3em] uppercase font-light">
+            <span
+              className="text-[10px] uppercase font-bold"
+              style={{ whiteSpace: 'nowrap', display: 'block' }}
+            >
               {loading ? 'Creating...' : 'リンクを発行する'}
             </span>
-            <ArrowRight size={14} className="opacity-60 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="opacity-60 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
 
