@@ -2,5 +2,6 @@ name = "lumi"
 pages_build_output_dir = "frontend/dist"
 compatibility_date = "2024-04-03"
 
-# Cloudflare Pagesでは、KVバインディングはダッシュボードの設定から行うことが推奨されます。
-# wrangler.tomlに記載する場合、有効なIDが必要なため、ここでは省略します。
+[[kv_namespaces]]
+binding = "LUMI_KV"
+id = "dummy_id"

@@ -13,9 +13,9 @@ const QUESTIONS = [
     id: 1,
     text: "あなたから見たこの人の「雰囲気」は？",
     options: [
-      { text: "凛とした", colors: ["#D4DFE6", "#EAEAEA", "#A3B1C6"] },
-      { text: "ふんわり", colors: ["#FADADD", "#F5F5DC", "#EAE7E2"] },
-      { text: "神秘的", colors: ["#E6E6FA", "#D8BFD8", "#C0C0C0"] }
+      { text: "凛とした", colors: ["#E2E7E2", "#F2F2EE", "#A3B1C6"] },
+      { text: "ふんわり", colors: ["#EAE7E2", "#F8F8F5", "#D9D9D2"] },
+      { text: "神秘的", colors: ["#E2E4E7", "#D8BFD8", "#C0C0C0"] }
     ]
   },
   {
@@ -115,21 +115,21 @@ const PaletteAnswer = () => {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
-              className="max-w-md w-full text-center bg-white/30 backdrop-blur-xl border border-white/40 p-12 rounded-[2rem] shadow-sm"
+              className="max-w-md w-full text-center bg-white/30 backdrop-blur-xl border border-white/40 p-12 rounded-lumi-lg shadow-sm"
             >
-              <h2 className="text-3xl font-serif mb-6 opacity-80">Lumi Link</h2>
-              <p className="text-sm opacity-50 mb-12 leading-relaxed">
+              <h2 className="text-3xl font-serif mb-6 text-lumi-dark">Lumi Link</h2>
+              <p className="text-sm text-lumi-dark/60 mb-12 leading-relaxed">
                 リンクをシェアして、<br />友達から見たあなたをカラーパレットに。
               </p>
 
-              <div className="bg-white/60 p-5 rounded-2xl flex items-center gap-4 mb-10 ring-1 ring-black/5">
+              <div className="bg-white/60 p-5 rounded-lumi flex items-center gap-4 mb-10 ring-1 ring-lumi-dark/5">
                 <input
                   type="text"
                   readOnly
                   value={`${window.location.origin}/tools/palette-of-me/${id}`}
-                  className="bg-transparent flex-1 text-xs opacity-50 outline-none font-mono tracking-tighter overflow-hidden text-ellipsis"
+                  className="bg-transparent flex-1 text-xs text-lumi-dark/50 outline-none font-mono tracking-tighter overflow-hidden text-ellipsis"
                 />
-                <button onClick={copyLink} className="p-2.5 bg-lumi-beige rounded-xl hover:bg-white transition-all shadow-sm">
+                <button onClick={copyLink} className="p-2.5 bg-lumi-beige rounded-full hover:bg-white transition-all shadow-sm">
                   {isCopied ? <Check size={16} className="text-green-500" /> : <Copy size={16} className="opacity-40" />}
                 </button>
               </div>
@@ -160,10 +160,10 @@ const PaletteAnswer = () => {
               exit={{ opacity: 0, x: -20 }}
               className="max-w-md w-full"
             >
-              <span className="text-[10px] uppercase tracking-[0.3em] opacity-30 mb-4 block text-center">
+              <span className="text-[10px] uppercase tracking-[0.3em] text-lumi-dark/40 mb-4 block text-center">
                 Question {currentStep + 1} / {QUESTIONS.length}
               </span>
-              <h2 className="text-2xl font-serif mb-12 text-center opacity-80 leading-relaxed">
+              <h2 className="text-2xl font-serif mb-12 text-center text-lumi-dark leading-relaxed">
                 {session.creatorName}さんの<br />
                 {QUESTIONS[currentStep].text}
               </h2>
@@ -172,7 +172,7 @@ const PaletteAnswer = () => {
                   <button
                     key={i}
                     onClick={() => handleAnswer(i)}
-                    className="w-full py-5 px-6 bg-white/30 backdrop-blur-sm border border-white/20 rounded-2xl text-left hover:bg-white/50 transition-all duration-300 font-serif opacity-70 hover:opacity-100"
+                    className="w-full py-5 px-8 bg-white/40 backdrop-blur-sm border border-white/20 rounded-full text-center hover:bg-white/60 transition-all duration-300 font-serif text-lumi-dark/70 hover:text-lumi-dark"
                   >
                     {opt.text}
                   </button>
@@ -206,17 +206,17 @@ const PaletteAnswer = () => {
                 />
 
                 <div className="relative h-full flex flex-col items-center justify-between py-16 px-8 text-center">
-                  <div className="flex justify-between w-full opacity-20 text-[8px] tracking-[0.4em] uppercase">
+                  <div className="flex justify-between w-full text-lumi-dark/30 text-[8px] tracking-[0.4em] uppercase">
                     <span>Lumi Palette</span>
                     <span>No. {id?.substring(0, 4).toUpperCase()}</span>
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-serif opacity-40 mb-2 italic">The Palette of</h3>
-                    <h2 className="text-4xl font-serif opacity-80 tracking-tighter mb-8">{session.creatorName}</h2>
+                    <h3 className="text-sm font-serif text-lumi-dark/50 mb-2 italic">The Palette of</h3>
+                    <h2 className="text-4xl font-serif text-lumi-dark/90 tracking-tighter mb-8">{session.creatorName}</h2>
                     <div className="space-y-2">
                       {answers.map((ans, i) => (
-                        <div key={i} className="text-xs font-serif opacity-40 tracking-widest uppercase italic">
+                        <div key={i} className="text-xs font-serif text-lumi-dark/50 tracking-widest uppercase italic">
                           {QUESTIONS[i].options[ans].text}
                         </div>
                       ))}
@@ -225,11 +225,11 @@ const PaletteAnswer = () => {
 
                   <div className="w-full">
                     {/* Space for mention */}
-                    <div className="border-t border-black/5 pt-8 mb-4">
-                      <div className="text-[10px] uppercase tracking-widest opacity-20 mb-8">Write mention here</div>
-                      <div className="h-12 w-full border border-dashed border-black/10 rounded-lg" />
+                    <div className="border-t border-lumi-dark/10 pt-8 mb-4">
+                      <div className="text-[10px] uppercase tracking-widest text-lumi-dark/30 mb-8">Write mention here</div>
+                      <div className="h-12 w-full border border-dashed border-lumi-dark/20 rounded-lg" />
                     </div>
-                    <div className="flex justify-between items-end opacity-20 text-[7px] tracking-[0.2em] uppercase">
+                    <div className="flex justify-between items-end text-lumi-dark/30 text-[7px] tracking-[0.2em] uppercase">
                       <span>lumi.diag</span>
                       <span className="text-[10px] font-serif lowercase">@{session.creatorName}</span>
                     </div>

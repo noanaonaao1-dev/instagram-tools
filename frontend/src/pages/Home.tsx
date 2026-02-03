@@ -30,17 +30,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
-      <header className="mb-24 text-center">
-        <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-6 opacity-80 font-light">Lumi</h1>
-        <div className="flex items-center justify-center gap-4 opacity-40">
+    <div className="max-w-5xl mx-auto px-8 py-16 md:py-24">
+      <header className="mb-20 text-center">
+        <h1 className="text-5xl md:text-7xl font-serif tracking-tighter mb-6 text-lumi-dark font-light">Lumi</h1>
+        <div className="flex items-center justify-center gap-4 text-lumi-dark/40">
           <div className="h-[1px] w-8 bg-current"></div>
           <p className="text-[10px] uppercase tracking-[0.4em]">Story Diagnostic & Collective</p>
           <div className="h-[1px] w-8 bg-current"></div>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
         {loading ? (
           <div className="col-span-full py-20 text-center opacity-30 tracking-widest uppercase text-xs">
             Loading collection...
@@ -72,22 +72,22 @@ const Home = () => {
 };
 
 const ToolCard = ({ tool }: { tool: Tool }) => (
-  <div className="relative overflow-hidden transition-all duration-700 ease-out group-hover:translate-y-[-8px]">
-    <div className="aspect-[4/5] overflow-hidden mb-6 bg-lumi-pale ring-1 ring-black/5">
+  <div className="relative transition-all duration-700 ease-out group-hover:translate-y-[-4px]">
+    <div className="aspect-square overflow-hidden mb-5 bg-lumi-pale rounded-lumi ring-1 ring-black/[0.05]">
       <img
         src={tool.image}
         alt={tool.title}
-        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
       />
     </div>
-    <div className="flex justify-between items-start">
+    <div className="flex justify-between items-start px-2">
       <div>
-        <span className="text-[10px] uppercase tracking-widest opacity-50 mb-1 block">{tool.tag}</span>
-        <h2 className="text-2xl font-serif mb-1 opacity-80">{tool.title}</h2>
-        <p className="text-sm opacity-50 leading-relaxed max-w-[240px]">{tool.description}</p>
+        <span className="text-[8px] uppercase tracking-[0.2em] text-lumi-dark/40 mb-1.5 block">{tool.tag}</span>
+        <h2 className="text-lg md:text-xl font-serif mb-1.5 text-lumi-dark leading-tight">{tool.title}</h2>
+        <p className="text-[11px] text-lumi-dark/60 leading-relaxed line-clamp-2">{tool.description}</p>
       </div>
       <div className="pt-6">
-        <Sparkles size={16} className="opacity-20 group-hover:opacity-60 transition-opacity" />
+        <Sparkles size={16} className="text-lumi-dark/20 group-hover:text-lumi-dark/60 transition-colors" />
       </div>
     </div>
   </div>

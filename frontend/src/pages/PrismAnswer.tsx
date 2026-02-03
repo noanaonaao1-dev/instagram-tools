@@ -226,33 +226,33 @@ const PrismAnswer = () => {
            <motion.div
             key="link"
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}
-            className="max-w-md w-full text-center bg-white p-12 rounded-[2.5rem] shadow-sm border border-black/5"
+            className="max-w-md w-full text-center bg-white p-12 rounded-lumi-lg shadow-sm border border-lumi-dark/5"
            >
-             <Box className="mx-auto mb-8 opacity-10" size={48} />
-             <h2 className="text-2xl font-serif mb-6 opacity-80">結晶の核が生成されました</h2>
-             <p className="text-sm opacity-50 mb-10 leading-relaxed font-serif">
+             <Box className="mx-auto mb-8 text-lumi-dark/10" size={48} />
+             <h2 className="text-2xl font-serif mb-6 text-lumi-dark">結晶の核が生成されました</h2>
+             <p className="text-sm text-lumi-dark/60 mb-10 leading-relaxed font-serif">
                リンクをシェアして、友達にあなたの印象を答えてもらいましょう。<br />
                {session.targetCount}人に達すると、結晶が完成します。
              </p>
-             <div className="bg-[#F8F8F4] p-4 rounded-2xl flex items-center gap-3 mb-10 border border-black/5">
-               <input readOnly value={`${window.location.origin}/tools/prism-of-me/${id}`} className="bg-transparent flex-1 text-xs opacity-40 outline-none font-mono" />
+             <div className="bg-[#F8F8F4] p-4 rounded-2xl flex items-center gap-3 mb-10 border border-lumi-dark/5">
+               <input readOnly value={`${window.location.origin}/tools/prism-of-me/${id}`} className="bg-transparent flex-1 text-xs text-lumi-dark/40 outline-none font-mono" />
                <button onClick={copyLink} className="p-2.5 bg-white rounded-xl shadow-sm">
-                 {isCopied ? <Check size={16} className="text-green-500" /> : <Copy size={16} className="opacity-30" />}
+                 {isCopied ? <Check size={16} className="text-green-500" /> : <Copy size={16} className="text-lumi-dark/30" />}
                </button>
              </div>
-             <button onClick={() => setCurrentStep(0)} className="w-full py-4 bg-black text-white rounded-full text-[10px] tracking-[0.3em] uppercase">回答を開始する</button>
+             <button onClick={() => setCurrentStep(0)} className="w-full py-4 bg-lumi-dark text-white rounded-full text-[10px] tracking-[0.3em] uppercase">回答を開始する</button>
            </motion.div>
         )}
 
         {currentStep >= 0 && currentStep <= 9 && (
           <motion.div key={`q-${currentStep}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="max-w-md w-full">
             <div className="text-center mb-12">
-              <span className="text-[10px] uppercase tracking-[0.4em] opacity-30 mb-2 block">Part {currentStep + 1} / 10</span>
-              <h2 className="text-xl font-serif opacity-70 leading-relaxed px-4 h-20 flex items-center justify-center">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-lumi-dark/30 mb-2 block">Part {currentStep + 1} / 10</span>
+              <h2 className="text-xl font-serif text-lumi-dark leading-relaxed px-4 h-20 flex items-center justify-center">
                 {session.questions[currentStep].text}
               </h2>
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {[
                 { label: "全くそう思わない", score: 1 },
                 { label: "あまり思わない", score: 2 },
@@ -263,7 +263,7 @@ const PrismAnswer = () => {
                 <button
                   key={opt.score}
                   onClick={() => handleAnswer(opt.score)}
-                  className="w-full py-4 px-6 bg-white border border-black/5 rounded-2xl text-sm font-serif opacity-60 hover:opacity-100 hover:border-black/20 transition-all text-center"
+                  className="w-full py-4 px-8 bg-white/50 backdrop-blur-sm border border-lumi-dark/5 rounded-full text-sm font-serif text-lumi-dark/60 hover:text-lumi-dark hover:border-lumi-dark/20 transition-all text-center"
                 >
                   {opt.label}
                 </button>
@@ -273,19 +273,19 @@ const PrismAnswer = () => {
         )}
 
         {currentStep === 10 && (
-          <motion.div key="message" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full text-center">
-            <h2 className="text-2xl font-serif mb-6 opacity-80">一言メッセージ</h2>
-            <p className="text-xs opacity-40 mb-10 font-serif">{session.creatorName}さんへの印象を一言添えてください。</p>
+          <motion.div key="message" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-lumi-lg shadow-sm border border-lumi-dark/10">
+            <h2 className="text-2xl font-serif mb-6 text-lumi-dark">一言メッセージ</h2>
+            <p className="text-xs text-lumi-dark/40 mb-10 font-serif">{session.creatorName}さんへの印象を一言添えてください。</p>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="例：いつも落ち着いていて素敵です。"
-              className="w-full h-32 bg-white border border-black/5 rounded-[2rem] p-6 text-sm font-serif focus:outline-none focus:border-black/20 transition-all mb-10 resize-none"
+              className="w-full h-32 bg-white border border-lumi-dark/10 rounded-lumi p-6 text-sm font-serif focus:outline-none focus:border-lumi-dark/30 transition-all mb-10 resize-none"
             />
             <button
               onClick={submitResponse}
               disabled={isSubmitting}
-              className="group w-full py-5 bg-black text-white rounded-full flex items-center justify-center gap-3 disabled:opacity-30"
+              className="group w-full py-5 bg-lumi-dark text-white rounded-full flex items-center justify-center gap-3 disabled:opacity-30"
             >
               <span className="text-[10px] tracking-[0.3em] uppercase">{isSubmitting ? 'Sending...' : '結晶を送る'}</span>
               <Send size={14} className="opacity-60 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -318,18 +318,18 @@ const PrismAnswer = () => {
                <div className="absolute inset-0 bg-[#FBFBFA]" />
 
                <div className="relative h-full flex flex-col items-center justify-between py-16 px-8 text-center">
-                  <div className="flex justify-between w-full opacity-20 text-[7px] tracking-[0.4em] uppercase">
+                  <div className="flex justify-between w-full text-lumi-dark/20 text-[7px] tracking-[0.4em] uppercase">
                     <span>Prism Report</span>
                     <span>{isRevealed ? 'Unlocked' : 'Locked'}</span>
                   </div>
 
                   <div className={`transition-all duration-1000 ${!isRevealed ? 'grayscale' : ''}`} style={{ filter: `blur(${blurValue}px)` }}>
-                    <div ref={canvasRef} className="w-[240px] h-[240px] flex items-center justify-center" />
+                    <div ref={canvasRef} className="w-[200px] h-[200px] flex items-center justify-center mx-auto" />
 
                     <div className="mt-8">
-                      <h3 className="text-[9px] font-serif opacity-30 mb-2 italic">The prism of</h3>
-                      <h2 className="text-3xl font-serif opacity-80 tracking-tighter mb-4">{session.creatorName}</h2>
-                      <div className="inline-block px-4 py-1.5 border border-black/5 rounded-full text-[10px] font-serif opacity-40 tracking-widest italic">
+                      <h3 className="text-[9px] font-serif text-lumi-dark/30 mb-2 italic">The prism of</h3>
+                      <h2 className="text-3xl font-serif text-lumi-dark/90 tracking-tighter mb-4">{session.creatorName}</h2>
+                      <div className="inline-block px-4 py-1.5 border border-lumi-dark/10 rounded-full text-[10px] font-serif text-lumi-dark/50 tracking-widest italic">
                         {isRevealed ? twoName : '？？？'}
                       </div>
                     </div>
@@ -344,28 +344,28 @@ const PrismAnswer = () => {
                   <div className="w-full flex-1 flex flex-col justify-end">
                     {isRevealed ? (
                       <div className="space-y-4 mb-8 text-left">
-                        <div className="text-[8px] uppercase tracking-widest opacity-20 border-b border-black/5 pb-2">Friend Messages</div>
-                        <div className="max-h-24 overflow-hidden opacity-40 text-[9px] font-serif leading-relaxed italic space-y-2">
+                        <div className="text-[8px] uppercase tracking-widest text-lumi-dark/20 border-b border-lumi-dark/5 pb-2">Friend Messages</div>
+                        <div className="max-h-24 overflow-hidden text-lumi-dark/50 text-[9px] font-serif leading-relaxed italic space-y-2">
                           {session.responses.slice(0, 3).map((r, i) => (
                             <p key={i}>"{r.message}"</p>
                           ))}
                         </div>
                       </div>
                     ) : (
-                      <div className="py-8 opacity-20 text-[9px] font-serif italic mb-auto">
+                      <div className="py-8 text-lumi-dark/20 text-[9px] font-serif italic mb-auto">
                         結晶が完成すると、<br />友達からのメッセージが読めるようになります。
                       </div>
                     )}
 
                     {/* Mention Space */}
                     <div className="mb-10 text-center">
-                      <div className="text-[7px] tracking-[0.3em] opacity-10 mb-2 uppercase">Mention friends to reveal your prism</div>
-                      <div className="h-14 border border-dashed border-black/5 rounded-lg flex items-center justify-center">
-                        <span className="text-[8px] opacity-10 font-serif italic">@mention_space</span>
+                      <div className="text-[7px] tracking-[0.3em] text-lumi-dark/10 mb-2 uppercase">Mention friends to reveal your prism</div>
+                      <div className="h-14 border border-dashed border-lumi-dark/10 rounded-lg flex items-center justify-center">
+                        <span className="text-[8px] text-lumi-dark/10 font-serif italic">@mention_space</span>
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-end opacity-20 text-[6px] tracking-[0.2em] uppercase pt-4 border-t border-black/5">
+                    <div className="flex justify-between items-end text-lumi-dark/20 text-[6px] tracking-[0.2em] uppercase pt-4 border-t border-lumi-dark/5">
                       <span>lumi.prism</span>
                       <span className="text-[9px] font-serif lowercase">@{session.creatorName}</span>
                     </div>
@@ -417,7 +417,7 @@ const RadarChart = ({ scores }: { scores: Record<string, number> }) => {
   }).join(' ');
 
   return (
-    <svg width={size} height={size} className="opacity-40">
+    <svg width={size} height={size} className="text-lumi-dark/40">
       <polygon points={points} fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="0.5" />
       {attributes.map((_, i) => {
         const angle = (Math.PI * 2 * i) / attributes.length - Math.PI / 2;

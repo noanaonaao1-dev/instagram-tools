@@ -32,11 +32,11 @@ const PaletteCreate = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-lumi-beige">
-      <div className="max-w-md w-full text-center">
+      <div className="max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-lumi-lg shadow-sm border border-white/40">
         <div className="mb-12">
-          <Sparkles className="mx-auto mb-6 opacity-30" size={32} />
-          <h1 className="text-3xl font-serif mb-4 opacity-80">私を構成する成分表</h1>
-          <p className="text-sm opacity-50 leading-relaxed">
+          <Sparkles className="mx-auto mb-6 text-lumi-dark/30" size={32} />
+          <h1 className="text-3xl font-serif mb-4 text-lumi-dark">私を構成する成分表</h1>
+          <p className="text-sm text-lumi-dark/60 leading-relaxed px-4">
             友達にあなたの印象を答えてもらい、<br />
             あなただけの色を完成させましょう。
           </p>
@@ -49,7 +49,7 @@ const PaletteCreate = () => {
               placeholder="YOUR NAME"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-transparent border-b border-black/10 py-6 px-2 text-center text-2xl focus:outline-none focus:border-black/30 transition-all font-serif placeholder:opacity-20 placeholder:font-light"
+              className="w-full bg-transparent border-b border-lumi-dark/10 py-6 px-2 text-center text-2xl focus:outline-none focus:border-lumi-dark/40 transition-all font-serif placeholder:text-lumi-dark/20 placeholder:font-light text-lumi-dark"
               required
             />
           </div>
@@ -57,7 +57,7 @@ const PaletteCreate = () => {
           <button
             type="submit"
             disabled={loading || !name}
-            className="group flex items-center justify-center gap-4 mx-auto py-4 px-14 bg-black text-white rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-10"
+            className="group flex items-center justify-center gap-4 mx-auto py-4 px-14 bg-lumi-dark text-white rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-40"
           >
             <span className="text-xs tracking-[0.3em] uppercase font-light">
               {loading ? 'Creating...' : 'リンクを発行する'}

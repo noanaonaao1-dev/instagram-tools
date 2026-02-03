@@ -32,14 +32,14 @@ const PrismCreate = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-[#F8F8F4]">
-      <div className="max-w-md w-full text-center">
+      <div className="max-w-md w-full text-center bg-white/40 backdrop-blur-xl p-12 rounded-lumi-lg shadow-sm border border-black/[0.03]">
         <div className="mb-12">
-          <Box className="mx-auto mb-6 opacity-20" size={40} />
-          <h1 className="text-4xl font-serif mb-4 opacity-80 font-light tracking-tighter text-gray-700">Prism of Me</h1>
-          <p className="text-[11px] uppercase tracking-[0.3em] opacity-40 leading-relaxed mb-8">
+          <Box className="mx-auto mb-6 text-lumi-dark/20" size={40} />
+          <h1 className="text-4xl font-serif mb-4 text-lumi-dark font-light tracking-tighter">心のプリズム</h1>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-lumi-dark/40 leading-relaxed mb-8">
             先着解放型・他者視点診断
           </p>
-          <p className="text-sm opacity-50 leading-relaxed px-4 font-serif">
+          <p className="text-sm text-lumi-dark/60 leading-relaxed px-4 font-serif">
             友達があなたに抱く印象が、一つの「結晶」を紡ぎます。<br />
             設定した人数に達すると、あなたの本当の輝きが明らかに。
           </p>
@@ -53,13 +53,13 @@ const PrismCreate = () => {
                 placeholder="YOUR NAME"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-transparent border-b border-black/10 py-6 px-2 text-center text-2xl focus:outline-none focus:border-black/30 transition-all font-serif placeholder:opacity-20 placeholder:font-light"
+                className="w-full bg-transparent border-b border-lumi-dark/10 py-6 px-2 text-center text-2xl focus:outline-none focus:border-lumi-dark/40 transition-all font-serif placeholder:text-lumi-dark/20 placeholder:font-light text-lumi-dark"
                 required
               />
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] uppercase tracking-widest opacity-30">解き放たれる人数を選択</label>
+              <label className="text-[10px] uppercase tracking-widest text-lumi-dark/30">解き放たれる人数を選択</label>
               <div className="flex justify-center gap-6">
                 {['5', '10', '20'].map((count) => (
                   <button
@@ -68,8 +68,8 @@ const PrismCreate = () => {
                     onClick={() => setTargetCount(count)}
                     className={`w-14 h-14 rounded-full border transition-all duration-500 font-serif text-lg flex items-center justify-center ${
                       targetCount === count
-                      ? 'bg-black text-white border-black shadow-lg shadow-black/10'
-                      : 'border-black/5 text-black/40 hover:border-black/20'
+                      ? 'bg-lumi-dark text-white border-lumi-dark shadow-xl shadow-lumi-dark/10'
+                      : 'bg-white/50 border-lumi-dark/5 text-lumi-dark/40 hover:border-lumi-dark/20'
                     }`}
                   >
                     {count}
@@ -82,12 +82,12 @@ const PrismCreate = () => {
           <button
             type="submit"
             disabled={loading || !name}
-            className="group flex items-center justify-center gap-4 mx-auto py-5 px-16 bg-white border border-black/5 shadow-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-30"
+            className="group flex items-center justify-center gap-4 mx-auto py-5 px-16 bg-white border border-lumi-dark/10 shadow-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-500 disabled:opacity-30"
           >
-            <span className="text-xs tracking-[0.3em] uppercase font-light text-gray-600">
+            <span className="text-xs tracking-[0.3em] uppercase font-light text-lumi-dark/70">
               {loading ? 'Creating...' : '結晶の核を生成する'}
             </span>
-            <ArrowRight size={14} className="opacity-40 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="text-lumi-dark/40 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
 

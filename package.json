@@ -4,5 +4,8 @@
   "workspaces": [
     "frontend",
     "functions"
-  ]
+  ],
+  "dependencies": {
+    "playwright": "^1.58.1"
+  }
 }

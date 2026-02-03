@@ -16,7 +16,7 @@ const DEFAULT_TOOLS = [
   },
   {
     id: 'prism-of-me',
-    title: 'Prism of Me',
+    title: '心のプリズム',
     description: '他者視点の自分を可視化する結晶診断',
     image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=400',
     url: '/tools/prism-of-me',
@@ -25,7 +25,7 @@ const DEFAULT_TOOLS = [
   },
   {
     id: 'external-example',
-    title: 'Lumi Journal',
+    title: 'Lumi マガジン',
     description: '淡色女子のためのライフスタイルメディア',
     image: 'https://images.unsplash.com/photo-1516054653973-59bb77ec1499?q=80&w=400',
     url: 'https://example.com',
@@ -58,6 +58,7 @@ app.post('/palette/create', async (c) => {
 
 app.get('/palette/:id', async (c) => {
   const id = c.req.param('id')
+  if (!c.env.LUMI_KV) return c.json({ error: 'KV not found' }, 500)
   const sessionJson = await c.env.LUMI_KV.get(`palette:${id}`)
   if (!sessionJson) return c.json({ error: 'Not Found' }, 404)
   return c.json(JSON.parse(sessionJson))
@@ -95,6 +96,7 @@ app.post('/prism/create', async (c) => {
 // セッション取得
 app.get('/prism/:id', async (c) => {
   const id = c.req.param('id')
+  if (!c.env.LUMI_KV) return c.json({ error: 'KV not found' }, 500)
   const sessionJson = await c.env.LUMI_KV.get(`prism:${id}`)
   if (!sessionJson) return c.json({ error: 'Not Found' }, 404)
 
@@ -109,6 +111,7 @@ app.post('/prism/:id/respond', async (c) => {
   const id = c.req.param('id')
   const { answers, message } = await c.req.json() // answers: { questionId: score(1-5) }
 
+  if (!c.env.LUMI_KV) return c.json({ error: 'KV not found' }, 500)
   const sessionJson = await c.env.LUMI_KV.get(`prism:${id}`)
   if (!sessionJson) return c.json({ error: 'Not Found' }, 404)
 
